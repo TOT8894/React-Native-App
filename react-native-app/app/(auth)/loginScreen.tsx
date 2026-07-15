@@ -1,10 +1,22 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
-export default function Login():any{
+export default function Login():React.JSX.Element{
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
     function handle():any{
+        if(!email.trim()){
+           Alert.alert("email is required") 
+           return    
+        }
+        if(!password.trim()){
+           Alert.alert("password is required")   
+           return  
+        }
+        if(!(password.trim().length > 8)){
+           Alert.alert("password is short")     
+           return
+        }
         Alert.alert(
             "Login",
             "Logged in successfully",
