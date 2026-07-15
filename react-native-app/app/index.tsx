@@ -1,6 +1,5 @@
-import { View } from "react-native";
-import Register from "./(auth)/registerScreen";
-import Login from "./(auth)/loginScreen";
+import { Pressable,Text, View } from "react-native";
+import {router} from "expo-router"
 export default function Index() {
   return (
     <View
@@ -8,15 +7,14 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        borderBlockColor:"red",
-        borderWidth:4,
-        
-        margin:10,
-        marginBottom:40,
       }}
-    > <Register/>
-      <Login/>
- 
+    > 
+    <Pressable onPress={()=>router.push("/(auth)/registerScreen")}>
+      <Text>Go to register</Text>
+    </Pressable>
+        <Pressable onPress={()=>router.push("/(auth)/loginScreen")}>
+      <Text>Go to login</Text>
+    </Pressable>
     </View>
   );
 }
