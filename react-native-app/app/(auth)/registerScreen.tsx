@@ -1,5 +1,6 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
+import { router } from "expo-router";
 export default function Register():any{
     const [name,setName] = useState<string>("")
     const [password,setPassword] = useState<string>("")
@@ -8,8 +9,8 @@ export default function Register():any{
         Alert.alert(
             "Registration",
             "registered successfully",
-           [    {text:"ok",onPress:()=>console.log(email,name)},
-                {text:"canclel",onPress:()=>console.warn(email,name)}
+           [    {text:"ok",onPress:()=>router.push("/loginScreen")},
+                {text:"canclel",onPress:()=>router.push("/")}
            ]
         )
     }
