@@ -4,7 +4,7 @@ import { router } from "expo-router";
 export default function Login():React.JSX.Element{
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
-    function handle():any{
+    function handle():void{
         if(!email.trim()){
            Alert.alert("email is required") 
            return    
@@ -13,8 +13,8 @@ export default function Login():React.JSX.Element{
            Alert.alert("password is required")   
            return  
         }
-        if(!(password.trim().length > 8)){
-           Alert.alert("password is short")     
+        if(password.trim().length < 8){
+           Alert.alert("password should be at least 8 character")     
            return
         }
         Alert.alert(
@@ -35,6 +35,7 @@ export default function Login():React.JSX.Element{
             <TextInput
                 placeholder="*******"
                 value={password}
+                secureTextEntry
                 onChangeText={setPassword}
             />
             <Pressable
