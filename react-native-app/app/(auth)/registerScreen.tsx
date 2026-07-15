@@ -5,7 +5,7 @@ export default function Register():React.JSX.Element{
     const [name,setName] = useState<string>("")
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
-    function handle():any{
+    function handle():void{
         if(!name.trim()){
            Alert.alert("name is required") 
            return    
@@ -18,9 +18,9 @@ export default function Register():React.JSX.Element{
            Alert.alert("password is required") 
            return    
         }
-        if(!(password.trim().length > 8)){
-           Alert.alert("password is short")   
-           return  
+        if(password.trim().length < 8){
+           Alert.alert("password should be at least 8 character")     
+           return
         }
         Alert.alert(
             "Registration",
@@ -45,6 +45,7 @@ export default function Register():React.JSX.Element{
             <TextInput
                 placeholder="*******"
                 value={password}
+                secureTextEntry
                 onChangeText={setPassword}
             />
             <Pressable 
