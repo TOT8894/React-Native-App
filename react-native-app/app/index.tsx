@@ -1,6 +1,8 @@
-import { Link } from "expo-router";
+
 import { useState } from "react";
 import { Text,Button,Pressable,Alert, TextInput, View, TouchableOpacity } from "react-native";
+import Register from "./(auth)/registerScreen";
+import Login from "./(auth)/loginScreen";
 export default function Index() {
   const[email,setEmail]=useState("")
   function handleclick(){
@@ -28,7 +30,9 @@ export default function Index() {
         margin:10,
         marginBottom:40,
       }}
-    ><TextInput placeholder="Enter email" value={email} onChangeText={setEmail} style={{backgroundColor:"yellow",borderWidth:7,width:200,}}></TextInput>
+    > <Register/>
+      <Login/>
+      <TextInput placeholder="Enter email" value={email} onChangeText={setEmail} style={{backgroundColor:"yellow",borderWidth:7,width:200,}}></TextInput>
     <Button title="click me" onPress={handleclick}></Button>
   
     
@@ -45,7 +49,7 @@ export default function Index() {
     >
       <Text style={{ color: "white" }}>Click Me</Text>
     </Pressable>
-    <Link href="/Product">Product</Link>
+    
     </View>
   );
 }
