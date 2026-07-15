@@ -1,5 +1,6 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
+import { router } from "expo-router";
 export default function Login():any{
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
@@ -7,9 +8,9 @@ export default function Login():any{
         Alert.alert(
             "Login",
             "Logged in successfully",
-           [    {text:"ok",onPress:()=>console.log(email)},
-                {text:"canclel",onPress:()=>console.warn(email)}
-           ]
+           [    {text:"ok",onPress:()=>router.push("/")},
+                {text:"canclel",onPress:()=>router.push("/loginScreen")}
+            ]
         )
     }
     return(
