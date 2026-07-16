@@ -16,6 +16,5 @@ export const logOut=async()=>{
 }
 export const checkLogin=async()=>{
     const accessToken = await AsyncStorage.getItem("accessToken")
-    const refreshToken = await AsyncStorage.getItem("refreshToken")
-    return {accessToken,refreshToken}
+    return accessToken
 }
