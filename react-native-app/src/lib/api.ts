@@ -39,14 +39,14 @@ export const LogOut=async()=>{
     logOut()
     return body;
 }
-export const Profile=async({data,token}:any)=>{
+export const Profile=async(token:any)=>{
     const headers:any={};
     headers["authorization"] = `Bearer ${token}`;
     headers["content-type"] = "application/json";
     const response = await fetch("api/v1/auth/profile",{
         method:"POST",
         headers:headers,
-        body:JSON.stringify({data,token})
+        body:JSON.stringify(token)
     })
     const body = await response.json()
     return body;
