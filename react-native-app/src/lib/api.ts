@@ -1,4 +1,4 @@
-import { checkLogin, login, logOut, register } from "../storage/tokenStorage";
+import {  checkLoginAccessTokenStorage, loginTokenStorage, logOutTokenStorage, registerTokenStorage } from "../storage/tokenStorage";
 const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 
 export const Register=async(data:any)=>{
@@ -15,7 +15,7 @@ export const Register=async(data:any)=>{
     }
     const accessToken = body?.accesstoken??body?.data?.accessToken;
     const refreshToken = body?.refreshToken??body?.data?.refreshToken;
-    await register({accessToken,refreshToken})
+    await registerTokenStorage({accessToken,refreshToken})
     return body;
 }
 export const Login=async(data:any)=>{
@@ -32,11 +32,11 @@ export const Login=async(data:any)=>{
     }
     const accessToken = body?.accesstoken??body?.data?.accessToken;
     const refreshToken = body?.refreshToken??body?.data?.refreshToken;
-    await login({accessToken,refreshToken})
+    await loginTokenStorage({accessToken,refreshToken})
     return body;
 }
 export const LogOut=async()=>{
-    const token = await checkLogin()
+    const token = await checkLoginAccessTokenStorage()
     const response = await fetch(`${BASE_URL}/logout`,{
         method:"POST",
         headers:{
@@ -45,11 +45,11 @@ export const LogOut=async()=>{
         }
     })
     const body = await response.json()
-    await logOut()
+    await logOutTokenStorage()
     return body;
 }
 export const Profile=async()=>{
-    const token = await checkLogin()
+    const token = await checkLoginAccessTokenStorage()
     const response = await fetch(`${BASE_URL}/profile`,{
         method:"POST",
         headers:{
