@@ -1,5 +1,5 @@
 import { Pressable,Text, View } from "react-native";
-import {router} from "expo-router"
+import { Homepage } from "./(app)/home";
 export default function Index() {
   return (
     <View
@@ -9,12 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     > 
-    <Pressable onPress={()=>router.push("/(auth)/registerScreen")}>
-      <Text>Go to register</Text>
-    </Pressable>
-        <Pressable onPress={()=>router.push("/(auth)/loginScreen")}>
-      <Text>Go to login</Text>
-    </Pressable>
+      <Homepage/>
     </View>
   );
 }
