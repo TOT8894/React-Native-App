@@ -9,6 +9,9 @@ export function Homepage(){
             <Pressable onPress={()=>router.push("/(auth)/loginScreen")}>
                  <Text>Go to login</Text>
             </Pressable>
+            <Pressable onPress={()=>router.push("/(app)/profile")}>
+                 <Text>profile</Text>
+            </Pressable>
         </View>
     )
 }
