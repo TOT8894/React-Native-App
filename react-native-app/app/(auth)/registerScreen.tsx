@@ -1,7 +1,8 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
-export default function Register():React.JSX.Element{
+import { Register } from "../../src/lib/api";
+export default function RegisterScreen():React.JSX.Element{
     const [name,setName] = useState<string>("")
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
@@ -29,6 +30,12 @@ export default function Register():React.JSX.Element{
                 {text:"canclel",onPress:()=>router.push("/")}
            ]
         )
+        const user = {
+            name:name,
+            email:email,
+            password:password
+        }
+        Register(user);
     }
     return(
         <View>
