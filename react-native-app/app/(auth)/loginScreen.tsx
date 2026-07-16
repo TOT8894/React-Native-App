@@ -1,7 +1,8 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
-export default function Login():React.JSX.Element{
+import { Login } from "@/src/lib/api";
+export default function LoginScreen():React.JSX.Element{
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
     function handle():void{
@@ -24,6 +25,11 @@ export default function Login():React.JSX.Element{
                 {text:"canclel",onPress:()=>router.push("/loginScreen")}
             ]
         )
+        const user = {
+            email:email,
+            password:password
+        }
+        Login(user)
     }
     return(
         <View>
