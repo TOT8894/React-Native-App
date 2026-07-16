@@ -1,21 +1,8 @@
-import { login, logOut, register } from "../storage/tokenStorage";
+import { checkLogin, login, logOut, register } from "../storage/tokenStorage";
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 
 export const Register=async(data:any)=>{
-    const response = await fetch("api/v1/auth/register",{
-        method:"POST",
-        headers:{
-            "content-type":"application/jsonn"
-        },
-        body:JSON.stringify(data)
-    })
-    const body = await response.json()
-    const accessToken = body?.accesstoken??body?.data?.accessToken;
-    const refreshToken = body?.refreshToken??body?.data?.refreshToken;
-    register({accessToken,refreshToken})
-    return body;
-}
-export const Login=async(data:any)=>{
-    const response = await fetch("api/v1/auth/login",{
+    const response = await fetch(`${BASE_URL}/register`,{
         method:"POST",
         headers:{
             "content-type":"application/json"
@@ -23,31 +10,57 @@ export const Login=async(data:any)=>{
         body:JSON.stringify(data)
     })
     const body = await response.json()
+    if (!response.ok) {
+        throw new Error(body.message || "Registration failed");
+    }
     const accessToken = body?.accesstoken??body?.data?.accessToken;
     const refreshToken = body?.refreshToken??body?.data?.refreshToken;
-    login({accessToken,refreshToken})
+    await register({accessToken,refreshToken})
+    return body;
+}
+export const Login=async(data:any)=>{
+    const response = await fetch(`${BASE_URL}/login`,{
+        method:"GET",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+    })
+    const body = await response.json()
+    if (!response.ok) {
+        throw new Error(body.message || "Registration failed");
+    }
+    const accessToken = body?.accesstoken??body?.data?.accessToken;
+    const refreshToken = body?.refreshToken??body?.data?.refreshToken;
+    await login({accessToken,refreshToken})
     return body;
 }
 export const LogOut=async()=>{
-    const response = await fetch("api/v1/auth/logout",{
+    const token = await checkLogin()
+    const response = await fetch(`${BASE_URL}/logout`,{
         method:"POST",
         headers:{
+            authorization:`Bearer ${token}`,
             "content-type":"application/json"
         }
     })
     const body = await response.json()
-    logOut()
+    await logOut()
     return body;
 }
-export const Profile=async(token:any)=>{
-    const headers:any={};
-    headers["authorization"] = `Bearer ${token}`;
-    headers["content-type"] = "application/json";
-    const response = await fetch("api/v1/auth/profile",{
+export const Profile=async()=>{
+    const token = await checkLogin()
+    const response = await fetch(`${BASE_URL}/profile`,{
         method:"POST",
-        headers:headers,
-        body:JSON.stringify(token)
+        headers:{
+            authorization:`Bearer ${token}`,
+            "content-type":"application/json"
+        }
     })
+    
     const body = await response.json()
+    if (!response.ok) {
+        throw new Error(body.message || "Cannot load profile");
+    }
     return body;
 }
