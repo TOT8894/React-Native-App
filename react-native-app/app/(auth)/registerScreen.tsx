@@ -7,19 +7,19 @@ export default function Register():React.JSX.Element{
     const [email,setEmail] = useState<string>("")
     function handle():void{
         if(!name.trim()){
-           Alert.alert("name is required") 
+           Alert.alert("Error","name is required") 
            return    
         }
         if(!email.trim()){
-           Alert.alert("email is required")    
+           Alert.alert("Error","email is required")    
            return 
         }
         if(!password.trim()){
-           Alert.alert("password is required") 
+           Alert.alert("Error","password is required") 
            return    
         }
         if(password.trim().length < 8){
-           Alert.alert("password should be at least 8 character")     
+           Alert.alert("Error","password should be at least 8 character")     
            return
         }
         Alert.alert(
