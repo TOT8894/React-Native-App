@@ -3,21 +3,21 @@ interface token{
     accessToken:string,
     refreshToken:string
 }
-export const register=async({accessToken,refreshToken}:token):Promise<void>=>{
+export const registerTokenStorage=async({accessToken,refreshToken}:token):Promise<void>=>{
     await AsyncStorage.setItem("accessToken",accessToken)
     await AsyncStorage.setItem("refreshToken",refreshToken)
    
 }
-export const login=async({accessToken,refreshToken}:token):Promise<void>=>{
+export const loginTokenStorage=async({accessToken,refreshToken}:token):Promise<void>=>{
     await AsyncStorage.setItem("accessToken",accessToken)
     await AsyncStorage.setItem("refreshToken",refreshToken)
     
 }
-export const logOut=async():Promise<void>=>{
+export const logOutTokenStorage=async():Promise<void>=>{
     await AsyncStorage.removeItem("accessToken")
     await AsyncStorage.removeItem("refreshToken")
 }
-export const checkLogin=async():Promise<string>=>{
+export const checkLoginAccessTokenStorage=async():Promise<string>=>{
     const accessToken = await AsyncStorage.getItem("accessToken")
     if(!accessToken){
         return "accessToken is missing"
