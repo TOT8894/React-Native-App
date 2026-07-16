@@ -1,4 +1,4 @@
-import { login, register } from "../storage/tokenStorage";
+import { login, logOut, register } from "../storage/tokenStorage";
 
 export const Register=async(data:any)=>{
     const response = await fetch("api/v1/auth/register",{
@@ -26,5 +26,16 @@ export const Login=async(data:any)=>{
     const accessToken = body?.accesstoken??body?.data?.accessToken;
     const refreshToken = body?.refreshToken??body?.data?.refreshToken;
     login({accessToken,refreshToken})
+    return body;
+}
+export const LogOut=async()=>{
+    const response = await fetch("api/v1/auth/logout",{
+        method:"POST",
+        headers:{
+            "content-type":"application/json"
+        }
+    })
+    const body = await response.json()
+    logOut()
     return body;
 }
