@@ -1,12 +1,10 @@
-import {View,Text,Pressable} from "react-native"
-import {handle} from "../(auth)/profileScreen"
-export default function ProfileScreen():React.JSX.Element{
-    return(
-        <View>
-           <Pressable onPress={handle}>
-                <Text>view profile</Text>
-            </Pressable>
+import ProfileScreen from "../(auth)/profileScreen"
+import ProtectedRoute from "../(auth)/protectedRoute"
+export default function Profile():React.JSX.Element{
 
-        </View>
+    return(
+        <ProtectedRoute>
+            <ProfileScreen/>
+        </ProtectedRoute>
     )
 }
