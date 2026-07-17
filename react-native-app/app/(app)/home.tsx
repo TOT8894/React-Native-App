@@ -1,17 +1,14 @@
-import { Pressable, View,Text } from "react-native";
-import {router} from "expo-router"
-export function Homepage(){
+import Header from "@/component/header";
+import Footer from "@/component/footer";
+import Nav from "@/component/nav";
+import { View } from "react-native";
+export default function Homepage(){
     return(
-        <View>
-            <Pressable onPress={()=>router.push("/(auth)/registerScreen")}>
-                <Text>Go to register</Text>
-            </Pressable>
-            <Pressable onPress={()=>router.push("/(auth)/loginScreen")}>
-                 <Text>Go to login</Text>
-            </Pressable>
-            <Pressable onPress={()=>router.push("/(app)/profile")}>
-                 <Text>profile</Text>
-            </Pressable>
+        <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+            <Header/>
+            <Nav/>
+            <Footer/>
         </View>
+       
     )
 }
