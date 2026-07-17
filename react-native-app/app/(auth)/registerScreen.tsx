@@ -1,12 +1,17 @@
 import { Pressable, TextInput,Alert, View,Text } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
-import { Register } from "../../src/lib/api";
+import { useAuth } from "@/src/context/authContext";
+
 export default function RegisterScreen():React.JSX.Element{
+
+    const {register} = useAuth()
     const [name,setName] = useState<string>("")
     const [password,setPassword] = useState<string>("")
     const [email,setEmail] = useState<string>("")
-    function handle():void{
+    const [loading,setloading] = useState<boolean>(false)
+
+    async function handle():Promise<void>{
         if(!name.trim()){
            Alert.alert("Error","name is required") 
            return    
@@ -23,19 +28,27 @@ export default function RegisterScreen():React.JSX.Element{
            Alert.alert("Error","password should be at least 8 character")     
            return
         }
-        Alert.alert(
+        
+        const user = {
+            name:name.trim(),
+            email:email.trim().toLowerCase(),
+            password:password.trim()
+        }
+       
+        try{
+            await register(user);
+            Alert.alert(
             "Registration",
             "registered successfully",
-           [    {text:"ok",onPress:()=>router.push("/loginScreen")},
-                {text:"canclel",onPress:()=>router.push("/")}
+           [    {text:"ok",onPress:()=>router.replace("/")},
+                
            ]
         )
-        const user = {
-            name:name,
-            email:email,
-            password:password
+        }catch(error:any){
+            Alert.alert("error",`${error?.message}`||"something gone wrong in registration")
+        }finally{
+            setloading(false)
         }
-        Register(user);
     }
     return(
         <View>
@@ -47,18 +60,27 @@ export default function RegisterScreen():React.JSX.Element{
             <TextInput
                 placeholder="Enter email"
                 value={email}
+                autoCorrect={false}
+                autoCapitalize="none"
+                keyboardType="email-address"
                 onChangeText={setEmail}
             />
             <TextInput
                 placeholder="*******"
                 value={password}
                 secureTextEntry
+                autoCorrect={false}
+                autoCapitalize="none"
                 onChangeText={setPassword}
             />
             <Pressable 
-                style={{borderBlockColor:"black",borderWidth:2,backgroundColor:"gray",}} 
+                style={{borderColor:"black",borderWidth:2,backgroundColor:"gray",}} 
+                disabled={loading}
                 onPress={handle}>
-                <Text style={{color: "white"}}>register</Text>
+                {loading?
+                    <Text style={{color: "white"}}>registering...</Text>
+                    :<Text style={{color: "white"}}>register</Text>
+                }
             </Pressable>
         </View>
     )
