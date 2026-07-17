@@ -7,39 +7,46 @@ export default function AuthProvider({children}:any):React.JSX.Element{
         
     const [user,setUser]=useState<any>(null)
     const [token,setToken] = useState<any>(null)
-    const [loading,setloading] = useState<boolean>(false)
+    const [loading,setloading] = useState<boolean>(true)
     const [error,setError] = useState<string>("")
     const [message,setMessage] = useState<string>("")
 
     useEffect(()=>{
-        loadToken()
+        initial()
     },[])
-
-    useEffect(()=>{
-        loadProfile()
-    },[])
-
+    async function initial(){
+        const token = await loadToken()
+        if(!token){
+            return
+        }
+        await loadProfile()
+    }
     async function loadToken(){
         const Token = await checkLoginAccessTokenStorage()
         setToken(Token)
+        return Token
     }
-    async function loadUser(response:any){
-        setUser(response?.data??response?.user)
+    function loadUser(response:any){
+        const user = response?.data??response?.user
+        setUser(user)
     }
     async function login(data:any){
        const response = await Login(data)
        loadUser(response)
-       loadToken()
+       await loadToken()
     }
     async function register(data:any){
         const response = await Register(data)
         loadUser(response)
-        loadToken()
+        await loadToken()
     }
     async function logOut(){
         await LogOut()
         setToken(null)
         setUser(null)
+        setError("")
+        setMessage("")
+
     }
     async function loadProfile(){
         try{    
@@ -47,7 +54,7 @@ export default function AuthProvider({children}:any):React.JSX.Element{
             setloading(true)
             const response = await Profile()
             loadUser(response)
-            setMessage(response?.messsage??response?.data?.message)
+            setMessage(response?.message??response?.data?.message)
         }
         catch(error:any){
             setError(error.message)
@@ -66,8 +73,9 @@ export default function AuthProvider({children}:any):React.JSX.Element{
             loading,
             message,
             error,
+            isAuthenticate:Boolean(token),
             register,
-            Profile:loadProfile
+            refreshProfile:loadProfile
         }}>
             {children}
         </AuthContext.Provider>
