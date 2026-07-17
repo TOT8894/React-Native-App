@@ -1,21 +1,16 @@
 import { useAuth } from "@/src/context/authContext"
-import { Profile } from "@/src/lib/api";
-import { useState } from "react";
-import {View,Text,Pressable} from "react-native"
+import { useEffect } from "react";
+import {View,Text} from "react-native"
 export default function ProfileScreen():React.JSX.Element{
-    const {token}:any=useAuth(); 
-    const [user,setuser]:any = useState<any>({})
-    
-    async function handle(){
-       const response = await Profile(token)
-       const body = await response.json()
-       setuser(body.data)
-    }
+    const {user,refreshProfile}:any=useAuth(); 
+    useEffect(()=>{
+        refreshProfile()
+    },[])
     return(
         <View>
-            <Pressable onPress={handle}>
-                <Text>view profile</Text>
-            </Pressable>
+            <Text>name: {user?.name}</Text>
+            <Text>email: {user?.email} </Text>
+            <Text>hashedpassword: {user?.password} </Text>
         </View>
     )
 }
