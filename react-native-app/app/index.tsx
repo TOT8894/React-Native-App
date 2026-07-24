@@ -1,15 +1,26 @@
 import Footer from "@/src/component/common/BottomNavigation.tsx";
-import { View, Image,Text, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-export default function Homepage() {
+import { View, ScrollView } from "react-native";
+import  { SafeAreaView } from "react-native-safe-area-context";
+import Homepage from "./(tabs)";
+export default function APP() {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View>
-          <Image source={require("../assets/images/image.png")} />
-          <Text>Welcome to the Homepage!</Text>
-        </View>
-        <View>
+       <View
+          style={{
+          marginTop:50,
+          width: 400,
+          height: 700,
+          alignSelf: "center",
+          borderColor: "black",
+          borderWidth: 2,
+          borderRadius:10,
+          position:"relative",
+          padding:5,
+          display:"flex"
+          }}
+        >
+          <Homepage/>
           <Footer/>
         </View>
       </ScrollView>
