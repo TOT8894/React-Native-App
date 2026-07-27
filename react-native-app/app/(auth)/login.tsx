@@ -161,8 +161,18 @@ export default function LoginScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  keyboardView: {
-    flex: 1,
+  keyboardView: {           
+      height: 700,
+      width: 400,
+      marginTop:50,
+      alignSelf: "center",
+      borderColor: "black",
+      borderWidth: 2,
+      borderRadius:10,
+      position:"relative",
+      padding:5,
+      display:"flex"
+      
   },
 
   scrollContainer: {
