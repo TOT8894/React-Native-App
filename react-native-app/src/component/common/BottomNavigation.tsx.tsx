@@ -51,7 +51,7 @@ export default function Footer(){
 
 
                 <View style={style.icons_container}>
-                   <Pressable onPress={()=>router.push("/(auth)/login")}> 
+                   <Pressable onPress={()=>router.push("/(tabs)/moreScreen")}> 
                         <Image
                             source={{
                             uri: "https://cdn-icons-png.flaticon.com/128/1828/1828817.png",
