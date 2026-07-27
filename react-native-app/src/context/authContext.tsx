@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { Login,LogOut,Register,Profile } from "../lib/api"
-import {  checkLoginAccessTokenStorage } from "../storage/tokenStorage"
+import { Login,LogOut,Register,Profile } from "../api/auth.api"
+import {  checkLoginAccessTokenStorage } from "../storage/auth.store"
 
 const AuthContext=createContext<any>(null)
 export default function AuthProvider({children}:any):React.JSX.Element{
