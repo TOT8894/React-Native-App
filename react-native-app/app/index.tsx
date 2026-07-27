@@ -8,9 +8,9 @@ export default function APP() {
       <ScrollView>
        <View
           style={{
-          marginTop:50,
-          width: 400,
           height: 700,
+          width: 400,
+          marginTop:50,
           alignSelf: "center",
           borderColor: "black",
           borderWidth: 2,
