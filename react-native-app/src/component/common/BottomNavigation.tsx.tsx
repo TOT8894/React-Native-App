@@ -1,4 +1,5 @@
-import { View,Text,StyleSheet,Image } from "react-native";
+import { View,Text,StyleSheet,Image, Pressable } from "react-native";
+import {router} from "expo-router"
 export default function Footer(){
     return(
         <>
@@ -50,13 +51,15 @@ export default function Footer(){
 
 
                 <View style={style.icons_container}>
-                    <Image
-                        source={{
-                        uri: "https://cdn-icons-png.flaticon.com/128/1828/1828817.png",
-                        }}
-                        style={style.icons}
-                    />
-                    <Text>More</Text>
+                   <Pressable onPress={()=>router.push("/(auth)/login")}> 
+                        <Image
+                            source={{
+                            uri: "https://cdn-icons-png.flaticon.com/128/1828/1828817.png",
+                            }}
+                            style={style.icons}
+                        />
+                        <Text>More</Text>
+                    </Pressable>
                 </View>
 
                 
@@ -73,11 +76,7 @@ const style = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-around",
         position:"absolute",
-        bottom:5,
-        
-            
-       
-                
+        bottom:5,          
     },
     icons:{
         width:40,
