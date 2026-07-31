@@ -87,6 +87,7 @@ const style = StyleSheet.create({
     icons_container:{
         alignItems: "center",
         cursor:"pointer",
+        position:relative,
         backgroundColor:"inherit"
     }
 })
